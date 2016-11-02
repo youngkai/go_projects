@@ -1,34 +1,56 @@
 package main
 
 import "fmt"
+import "errors"
 
-// PersonInfo是一个包含个人详细信息的类型
-type PersonInfo struct {
-	ID      string
-	Name    string
-	Address string
+type student struct {
+	name string
+	id   int
 }
 
 func main() {
-	//	myslice := []int{1, 2, 3}
-	//	newslice := append(myslice, 16, 17) //append函数的追加作用
-	//	for _, v := range newslice {
-	//		fmt.Println(v)
+	//我们可以使用Go语言内置的函数 make() 来创建一个新 map
+	//	person := make(map[string]student)
+	//	person["1"] = student{"young", 12}
+	//	person["2"] = student{"lee", 18}
+	//	//Go语言提供了一个内置函数 delete() ,用于删除容器内的元素
+	//	delete(person, "2")
+	//	for _, v := range person {
+	//		fmt.Println(v.name)
 	//	}
+	//fmt.Println(test(11))
+	//	Num := 3
+	//	switch {
+	//	case 0 <= Num && Num <= 3:
+	//		fmt.Printf("0-3")
+	//	case 4 <= Num && Num <= 6:
+	//		fmt.Printf("4-6")
+	//	case 7 <= Num && Num <= 9:
+	//		fmt.Printf("7-9")
+	//	}
+	i := 0
+HERE:
+	fmt.Println(i)
+	i++
+	if i < 10 {
+		goto HERE
+	}
+}
 
-	//map 是一堆键值对的未排序集合
-	var personDB map[string]PersonInfo
-	personDB = make(map[string]PersonInfo)
-	// 往这个map里插入几条数据
-	personDB["12345"] = PersonInfo{"12345", "Tom", "Room 203,..."}
-	personDB["1"] = PersonInfo{"1", "Jack", "Room 101,..."}
-	// 从这个map查找键为"1234"的信息
-	person, ok := personDB["12345"]
-
-	// ok是一个返回的bool型,返回true表示找到了对应的数据
-	if ok {
-		fmt.Println("Found person", person.Name, "with ID 1234.")
+func test(x int) int {
+	if x == 10 {
+		return 1
 	} else {
-		fmt.Println("Did not find person with ID 1234.")
+		return x
+	}
+}
+
+func add(num1 int, num2 int) (ret int, err error) {
+	ret := num1 + num2
+	if ret < 0 {
+		err = errors.New("不可能小于0")
+		return
+	} else {
+		return ret, nil
 	}
 }
