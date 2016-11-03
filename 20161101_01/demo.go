@@ -1,7 +1,8 @@
 package main
 
 import "fmt"
-import "errors"
+
+//import "errors"
 
 type student struct {
 	name string
@@ -28,13 +29,18 @@ func main() {
 	//	case 7 <= Num && Num <= 9:
 	//		fmt.Printf("7-9")
 	//	}
-	i := 0
-HERE:
-	fmt.Println(i)
-	i++
-	if i < 10 {
-		goto HERE
-	}
+	//	i := 0
+	//HERE:
+	//	fmt.Println(i)
+	//	i++
+	//	if i < 10 {
+	//		goto HERE
+	//	}
+
+	test1(1, 2, 3, 4)
+
+	test2(1, 2, "aaa")
+
 }
 
 func test(x int) int {
@@ -45,12 +51,32 @@ func test(x int) int {
 	}
 }
 
-func add(num1 int, num2 int) (ret int, err error) {
-	ret := num1 + num2
-	if ret < 0 {
-		err = errors.New("不可能小于0")
-		return
-	} else {
-		return ret, nil
+//func add(num1 int, num2 int) (ret int, err error) {
+//	ret := num1 + num2
+//	if ret < 0 {
+//		err = errors.New("不可能小于0")
+//		return
+//	} else {
+//		return ret, nil
+//	}
+//}
+
+//不定参数
+func test1(args ...int) {
+	for _, v := range args {
+		fmt.Println(v)
+	}
+}
+
+func test2(args ...interface{}) {
+	for _, v := range args {
+		switch v.(type) {
+		case int:
+			fmt.Println(v, "is a int")
+		case string:
+			fmt.Println(v, "is a string")
+		default:
+			fmt.Println(v, "unknow")
+		}
 	}
 }
