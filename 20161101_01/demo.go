@@ -1,6 +1,8 @@
 package main
 
 import "fmt"
+import "os"
+import "io"
 
 //import "errors"
 
@@ -37,9 +39,17 @@ func main() {
 	//		goto HERE
 	//	}
 
-	test1(1, 2, 3, 4)
+	//test1(1, 2, 3, 4)
 
-	test2(1, 2, "aaa")
+	//test2(1, 2, "aaa")
+
+	x := func(a, b int) int {
+		return a + b
+	}
+
+	fmt.Println(x(1, 2))
+
+	CopyFile("/home/youngk/go/bb.txt", "/home/youngk/workspace/aa.txt")
 
 }
 
@@ -79,4 +89,21 @@ func test2(args ...interface{}) {
 			fmt.Println(v, "unknow")
 		}
 	}
+}
+
+//defer关键字
+func CopyFile(dst, src string) (w int64, err error) {
+	srcFile, err := os.Open(src)
+	if err != nil {
+		return
+	}
+	defer srcFile.Close()
+
+	dstFile, err := os.Create(dst)
+	if err != nil {
+		return
+	}
+	defer dstFile.Close()
+
+	return io.Copy(dstFile, srcFile)
 }
