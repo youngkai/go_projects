@@ -91,12 +91,13 @@ func test2(args ...interface{}) {
 	}
 }
 
-//defer关键字
+//defer关键字,一个函数中可以存在多个defer
 func CopyFile(dst, src string) (w int64, err error) {
 	srcFile, err := os.Open(src)
 	if err != nil {
 		return
 	}
+	srcFile.Chmod()
 	defer srcFile.Close()
 
 	dstFile, err := os.Create(dst)
@@ -107,3 +108,17 @@ func CopyFile(dst, src string) (w int64, err error) {
 
 	return io.Copy(dstFile, srcFile)
 }
+
+//panic内置函数   Go语言引入了两个内置函数 panic() 和 recover() 以报告和处理运行时错误和程序中的错误场景
+//当在一个函数执行过程中调用 panic() 函数时,正常的函数执行流程将立即终止,但函数中
+//之前使用 defer 关键字延迟执行的语句将正常展开执行,之后该函数将返回到调用函数,并导致
+//逐层向上执行 panic 流程,直至所属的goroutine中所有正在执行的函数被终止。错误信息将被报
+//告,包括在调用 panic() 函数时传入的参数,这个过程称为错误处理流程。
+//recover() 函数用于终止错误处理流程。一般情况下, recover() 应该在一个使用 defer
+//关键字的函数中执行以有效截取错误处理流程。如果没有在发生异常的goroutine中明确调用恢复
+//过程(使用 recover 关键字),会导致该goroutine所属的进程打印异常信息后直接退出。
+//defer func() {
+//if r := recover(); r != nil {
+//log.Printf("Runtime error caught: %v", r)
+//}
+//}()
