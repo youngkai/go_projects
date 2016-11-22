@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"sort/sort/algorithm/qsort/qsort"
-	"sort/sort/algorithms/bubblesort"
+	qsort "sort/sort/algorithm/qsort/qsort"
+	bubblesort "sort/sort/algorithms/bubblesort"
 	"strconv"
 )
 
